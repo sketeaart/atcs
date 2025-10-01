@@ -1,0 +1,14 @@
+[Unit]
+Description=Laravel Echo Server
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/atcs
+ExecStart=/usr/bin/env laravel-echo-server start --force
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
