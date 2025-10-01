@@ -271,6 +271,11 @@ artisan_configure() {
   if ! grep -q "rooms-with-cctv" routes/api.php; then
     cat "$(dirname "$0")/overlay/routes/api.php" >> routes/api.php
   fi
+  # OTP routes
+  if ! grep -q "OtpController" routes/web.php; then
+    echo "require __DIR__.'/otp.php';" >> routes/web.php
+    cp "$(dirname "$0")/overlay/routes/otp.php" routes/otp.php
+  fi
   php artisan migrate --force
   php artisan db:seed --force
 }
