@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StreamController;
+use App\Http\Controllers\ExportController;
 
 Route::view('/', 'welcome')->name('welcome');
 
@@ -14,6 +15,7 @@ Route::middleware(['web'])->group(function () {
         Route::view('/notifications', 'pages.notifications')->name('notifications');
         Route::view('/messages', 'pages.messages')->name('messages');
         Route::get('/stream/{cctv}', [StreamController::class, 'show'])->name('stream.show');
+        Route::get('/export/{entity}', [ExportController::class, 'export'])->name('export.excel');
     });
 });
 
