@@ -1,0 +1,15 @@
+[Unit]
+Description=Laravel Scheduler
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/atcs
+ExecStart=/usr/bin/php /var/www/atcs/artisan schedule:work
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
