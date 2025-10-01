@@ -31,5 +31,10 @@ class CctvStatusUpdated implements ShouldBroadcast
     {
         return new Channel('cctv.status');
     }
+
+    public function broadcastAs(): string
+    {
+        return 'CctvStatusUpdated';
+    }
 }
 

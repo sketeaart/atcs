@@ -10,7 +10,10 @@
 <body class="min-h-screen bg-slate-900 text-white">
   <div class="flex min-h-screen">
     <aside class="w-64 bg-slate-800/60 backdrop-blur border-r border-white/10 hidden md:block">
-      <div class="p-4 font-bold">ATCS</div>
+      <div class="p-4 font-bold flex items-center justify-between">
+        <span>ATCS</span>
+        <button id="theme-toggle" class="px-2 py-1 text-xs rounded bg-white/10">Theme</button>
+      </div>
       <nav class="flex flex-col">
         <a class="px-4 py-2 hover:bg-white/5" href="/dashboard">Dashboard</a>
         <a class="px-4 py-2 hover:bg-white/5" href="/maps">Maps</a>
