@@ -1,0 +1,21 @@
+{
+  "authHost": "http://localhost",
+  "authEndpoint": "/broadcasting/auth",
+  "clients": [],
+  "database": "redis",
+  "databaseConfig": {
+    "redis": {}
+  },
+  "devMode": false,
+  "host": null,
+  "port": 6001,
+  "protocol": "http",
+  "socketio": {},
+  "apiOriginAllow": {
+    "allowCors": true,
+    "allowOrigin": "*",
+    "allowMethods": "*",
+    "allowHeaders": "*"
+  }
+}
+
