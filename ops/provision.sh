@@ -115,6 +115,15 @@ configure_env() {
   else
     echo "REDIS_CLIENT=predis" >> .env
   fi
+  # Mail defaults (use Gmail App Password in production)
+  grep -q '^MAIL_MAILER=' .env || echo "MAIL_MAILER=smtp" >> .env
+  grep -q '^MAIL_HOST=' .env || echo "MAIL_HOST=smtp.gmail.com" >> .env
+  grep -q '^MAIL_PORT=' .env || echo "MAIL_PORT=587" >> .env
+  grep -q '^MAIL_USERNAME=' .env || echo "MAIL_USERNAME=your-email@gmail.com" >> .env
+  grep -q '^MAIL_PASSWORD=' .env || echo "MAIL_PASSWORD=your-app-password" >> .env
+  grep -q '^MAIL_ENCRYPTION=' .env || echo "MAIL_ENCRYPTION=tls" >> .env
+  grep -q '^MAIL_FROM_ADDRESS=' .env || echo "MAIL_FROM_ADDRESS=\"your-email@gmail.com\"" >> .env
+  grep -q '^MAIL_FROM_NAME=' .env || echo "MAIL_FROM_NAME=\"KILANG PERTAMINA INTERNASIONAL\"" >> .env
 }
 
 install_php_packages() {
@@ -144,6 +153,22 @@ install_js_packages() {
   npx tailwindcss init -p || true
   npm install leaflet hls.js laravel-echo socket.io-client @livewire/flux
   if is_cmd npm; then npm install -g laravel-echo-server || true; fi
+}
+
+install_livewire_starter_kit() {
+  log "Installing Livewire + Volt + Flux starter kit"
+  cd "$APP_DIR"
+  # Prefer official Livewire starter kit if available
+  if php artisan | grep -q 'install:livewire'; then
+    php artisan install:livewire --no-interaction || true
+  else
+    # Fallback to Breeze Livewire scaffolding
+    composer require laravel/breeze:^2.0 || true
+    if php artisan | grep -q 'breeze:install'; then
+      php artisan breeze:install livewire --no-interaction || true
+    fi
+  fi
+  php artisan volt:install || true
 }
 
 apply_overlay() {
@@ -303,6 +328,7 @@ main() {
   configure_env
   install_php_packages
   install_js_packages
+  install_livewire_starter_kit
   apply_overlay
   generate_migrations_and_models
   seed_buildings
